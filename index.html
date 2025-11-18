@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Gatilho - Travelex Bank</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #212644 0%, #2a3150 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+            max-width: 900px;
+            width: 100%;
+            overflow: hidden;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #212644 0%, #2a3150 100%);
+            padding: 45px 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(10%, 10%); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 15px;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(218, 41, 47, 0.2);
+            color: #DA292F;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 12px;
+            border: 1px solid rgba(218, 41, 47, 0.3);
+        }
+
+        .form-wrapper {
+            padding: 45px 40px;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin-bottom: 35px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #DA292F 0%, #ff4757 100%);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #212644;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-group label .icon {
+            font-size: 16px;
+        }
+
+        .form-group label .required {
+            color: #DA292F;
+        }
+
+        .form-group label .hint {
+            font-size: 11px;
+            font-weight: 400;
+            color: #808080;
+            margin-left: 4px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #212644;
+            box-shadow: 0 0 0 4px rgba(33, 38, 68, 0.08);
+        }
+
+        .form-group input:disabled,
+        .form-group select:disabled {
+            background: #f5f5f5;
+            cursor: not-allowed;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 110px;
+            line-height: 1.6;
+        }
+
+        .char-counter {
+            font-size: 11px;
+            color: #808080;
+            text-align: right;
+            margin-top: 6px;
+        }
+
+        /* Custom Select com Busca */
+        .custom-select {
+            position: relative;
+        }
+
+        .custom-select input {
+            cursor: pointer;
+        }
+
+        .custom-select-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            max-height: 280px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .custom-select-dropdown.active {
+            display: block;
+            animation: dropdownSlide 0.3s ease;
+        }
+
+        @keyframes dropdownSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .custom-select-option {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .custom-select-option:last-child {
+            border-bottom: none;
+        }
+
+        .custom-select-option:hover {
+            background: #f8f9fa;
+            color: #212644;
+        }
+
+        .custom-select-option.selected {
+            background: #fff5f5;
+            color: #DA292F;
+            font-weight: 600;
+        }
+
+        .custom-select-option.hidden {
+            display: none;
+        }
+
+        .custom-select-empty {
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 13px;
+        }
+
+        /* Estados UF */
+        .uf-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .uf-option {
+            padding: 12px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            font-weight: 700;
+            background: white;
+        }
+
+        .uf-option:hover {
+            border-color: #212644;
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        .uf-option.selected {
+            border-color: #DA292F;
+            background: #DA292F;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(218, 41, 47, 0.3);
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #DA292F 0%, #c91f27 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 15px rgba(218, 41, 47, 0.3);
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(218, 41, 47, 0.4);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        .submit-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .submit-button.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .submit-button.loading::after {
+            content: "";
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            top: 50%;
+            left: 50%;
+            margin-left: -11px;
+            margin-top: -11px;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 18px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            display: none;
+            animation: slideDown 0.4s ease-out;
+            font-weight: 500;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+            display: block;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+            display: block;
+        }
+
+        .input-error {
+            border-color: #DA292F !important;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .error-message {
+            color: #DA292F;
+            font-size: 12px;
+            margin-top: 6px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 16px;
+            top: 42px;
+            font-size: 18px;
+            color: #ccc;
+            pointer-events: none;
+        }
+
+        .input-valid .input-icon {
+            color: #28a745;
+        }
+
+        .section-divider {
+            border: none;
+            border-top: 2px solid #f0f0f0;
+            margin: 35px 0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #212644;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: #DA292F;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+
+            .form-wrapper {
+                padding: 35px 25px;
+            }
+
+            .header {
+                padding: 35px 25px;
+            }
+
+            .uf-grid {
+                grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+                gap: 8px;
+            }
+
+            .uf-option {
+                padding: 10px;
+                font-size: 12px;
+            }
+        }
+
+        /* Scrollbar customizada */
+        .custom-select-dropdown::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .custom-select-dropdown::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .custom-select-dropdown::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+
+        .custom-select-dropdown::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>🎯 Cadastro de Gatilho</h1>
+                <p>Núcleo de Negócios - Travelex Bank</p>
+                <span class="badge">URGENTE</span>
+            </div>
+        </div>
+
+        <div class="form-wrapper">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div id="alert" class="alert"></div>
+
+            <form id="leadForm">
+                <!-- Seção 1: Informações do Lead -->
+                <div class="section-title">📋 Informações do Lead</div>
+                
+                <div class="form-grid">
+                    <!-- Data do Lead -->
+                    <div class="form-group">
+                        <label for="dataLead">
+                            <span class="icon">📅</span>
+                            Data do Lead
+                            <span class="required">*</span>
+                        </label>
+                        <input type="datetime-local" id="dataLead" name="dataLead" required readonly>
+                    </div>
+
+                    <!-- Canal de Origem -->
+                    <div class="form-group">
+                        <label for="canalOrigem">
+                            <span class="icon">📢</span>
+                            Canal de Origem
+                            <span class="required">*</span>
+                        </label>
+                        <select id="canalOrigem" name="canalOrigem" required>
+                            <option value="">Selecione...</option>
+                            <option value="Anúncios Google">Anúncios Google</option>
+                            <option value="Campanha de Indicação Interna">Campanha de Indicação Interna</option>
+                            <option value="Campanha de Marketing">Campanha de Marketing</option>
+                            <option value="Eventos e Feiras">Eventos e Feiras</option>
+                            <option value="Indicação">Indicação</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="Jornal Valor Econômico">Jornal Valor Econômico</option>
+                            <option value="Linkedin">Linkedin</option>
+                            <option value="N/A">N/A</option>
+                            <option value="Site">Site</option>
+                        </select>
+                    </div>
+
+                    <!-- Linha de Negócio -->
+                    <div class="form-group">
+                        <label for="linhaNegocio">
+                            <span class="icon">💼</span>
+                            Linha de Negócio
+                            <span class="required">*</span>
+                        </label>
+                        <select id="linhaNegocio" name="linhaNegocio" required>
+                            <option value="">Selecione...</option>
+                            <option value="Turismo">Turismo</option>
+                            <option value="Câmbio">Câmbio</option>
+                            <option value="Corporativo">Corporativo</option>
+                            <option value="E-commerce">E-commerce</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                    </div>
+
+                    <!-- Como nos conheceu -->
+                    <div class="form-group">
+                        <label for="comoConheceu">
+                            <span class="icon">🔍</span>
+                            Como nos conheceu?
+                        </label>
+                        <input type="text" id="comoConheceu" name="comoConheceu" placeholder="Ex: Indicação de parceiro, Google, etc.">
+                    </div>
+                </div>
+
+                <hr class="section-divider">
+
+                <!-- Seção 2: Dados da Empresa -->
+                <div class="section-title">🏢 Dados da Empresa</div>
+
+                <div class="form-grid">
+                    <!-- Cliente -->
+                    <div class="form-group">
+                        <label for="cliente">
+                            <span class="icon">🏪</span>
+                            Nome da Empresa
+                            <span class="required">*</span>
+                        </label>
+                        <input type="text" id="cliente" name="cliente" placeholder="Ex: Empresa LTDA" required>
+                        <span class="error-message" id="clienteError">Campo obrigatório</span>
+                    </div>
+
+                    <!-- CNPJ -->
+                    <div class="form-group">
+                        <label for="documento">
+                            <span class="icon">📄</span>
+                            CNPJ
+                            <span class="required">*</span>
+                        </label>
+                        <input type="text" id="documento" name="documento" placeholder="00.000.000/0000-00" required maxlength="18">
+                        <span class="input-icon" id="cnpjIcon">⏳</span>
+                        <span class="error-message" id="documentoError">CNPJ inválido</span>
+                    </div>
+
+                    <!-- Cidade -->
+                    <div class="form-group">
+                        <label for="cidade">
+                            <span class="icon">🌆</span>
+                            Cidade
+                            <span class="required">*</span>
+                        </label>
+                        <input type="text" id="cidade" name="cidade" placeholder="Ex: São Paulo" required>
+                    </div>
+
+                    <!-- Nome do Representante -->
+                    <div class="form-group">
+                        <label for="nomeRepresentante">
+                            <span class="icon">👤</span>
+                            Nome do Representante
+                            <span class="required">*</span>
+                        </label>
+                        <input type="text" id="nomeRepresentante" name="nomeRepresentante" placeholder="Nome da pessoa de contato" required>
+                    </div>
+                </div>
+
+                <!-- UF -->
+                <div class="form-group full-width" style="margin-top: 24px;">
+                    <label>
+                        <span class="icon">📍</span>
+                        Estado (UF)
+                        <span class="required">*</span>
+                    </label>
+                    <input type="hidden" id="uf" name="uf" required>
+                    <div class="uf-grid" id="ufGrid"></div>
+                    <span class="error-message" id="ufError">Selecione um estado</span>
+                </div>
+
+                <hr class="section-divider">
+
+                <!-- Seção 3: Responsáveis -->
+                <div class="section-title">👥 Responsáveis</div>
+
+                <div class="form-grid">
+                    <!-- Comercial Responsável -->
+                    <div class="form-group custom-select" id="comercialSelect">
+                        <label for="comercialInput">
+                            <span class="icon">🎯</span>
+                            Comercial Responsável
+                            <span class="required">*</span>
+                            <span class="hint">(digite para filtrar)</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="comercialInput" 
+                            placeholder="Digite o nome do comercial..."
+                            autocomplete="off"
+                            required
+                        >
+                        <input type="hidden" id="comercialResponsavel" name="comercialResponsavel" required>
+                        <div class="custom-select-dropdown" id="comercialDropdown"></div>
+                        <span class="error-message" id="comercialError">Selecione um comercial</span>
+                    </div>
+
+                    <!-- Consultor do Núcleo -->
+                    <div class="form-group custom-select" id="consultorSelect">
+                        <label for="consultorInput">
+                            <span class="icon">💡</span>
+                            Consultor do Núcleo
+                            <span class="required">*</span>
+                            <span class="hint">(digite para filtrar)</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="consultorInput" 
+                            placeholder="Digite o nome do consultor..."
+                            autocomplete="off"
+                            required
+                        >
+                        <input type="hidden" id="consultorNucleo" name="consultorNucleo" required>
+                        <div class="custom-select-dropdown" id="consultorDropdown"></div>
+                        <span class="error-message" id="consultorError">Selecione um consultor</span>
+                    </div>
+                </div>
+
+                <hr class="section-divider">
+
+                <!-- Seção 4: Detalhes do Atendimento -->
+                <div class="section-title">📝 Detalhes do Atendimento</div>
+
+                <div class="form-grid">
+                    <!-- Assunto -->
+                    <div class="form-group full-width">
+                        <label for="assunto">
+                            <span class="icon">📌</span>
+                            Assunto
+                            <span class="required">*</span>
+                        </label>
+                        <input type="text" id="assunto" name="assunto" placeholder="Ex: Interesse em câmbio corporativo" required maxlength="200">
+                        <div class="char-counter" id="assuntoCounter">0/200</div>
+                    </div>
+
+                    <!-- Observações -->
+                    <div class="form-group full-width">
+                        <label for="observacoes">
+                            <span class="icon">📋</span>
+                            Observações Lead Núcleo
+                        </label>
+                        <textarea id="observacoes" name="observacoes" placeholder="Informações adicionais sobre o lead..." maxlength="1000"></textarea>
+                        <div class="char-counter" id="observacoesCounter">0/1000</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button" id="submitBtn">
+                    🚀 Cadastrar Gatilho Urgente
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Dados dos comerciais e consultores
+        const comerciais = [
+            { id: '110071556', nome: 'Ana Paula Mattos de Moura' },
+            { id: '110071557', nome: 'Beatriz Felipe Amaro Pereira' }
+        ];
+
+        const consultores = [
+            { id: '1', nome: 'Alan Dias' },
+            { id: '2', nome: 'Amanda Bazzan Narcisio da Silva' },
+            { id: '3', nome: 'Amanda de Alencar Gomes Rocha' },
+            { id: '4', nome: 'Ana Cristina Bispo Leon Dionisio' },
+            { id: '5', nome: 'Ana Cristina Teodosio da Silva' },
+            { id: '6', nome: 'Andrea Cristina Evangelista dos Santos' },
+            { id: '7', nome: 'Danusa Kelly de Andrade Leite da Silva' },
+            { id: '8', nome: 'Elen de Oliveira Lopes' },
+            { id: '9', nome: 'Evani Costa de Santana' },
+            { id: '10', nome: 'Fabiane Gonçalves Araujo' },
+            { id: '11', nome: 'Gabriela Sousa Dias' },
+            { id: '12', nome: 'Gustavo Antonio Silva Santos' },
+            { id: '13', nome: 'Jefferson Menezes de Oliveira' },
+            { id: '14', nome: 'Leonam Israel Assuncao Vianna' },
+            { id: '15', nome: 'Natalia Araujo Masetti' },
+            { id: '16', nome: 'Priscila Barbosa da Conceicao' },
+            { id: '17', nome: 'Rafaella Silva Reis' },
+            { id: '18', nome: 'Rhayani Stephani Silva do Nascimento' },
+            { id: '19', nome: 'Rodrigo Henrique Leite Coltre' },
+            { id: '20', nome: 'Sandro Pereira Dias' },
+            { id: '21', nome: 'Suellen Oliveira da Silva' }
+        ];
+
+        // Estados brasileiros
+        const estados = [
+            'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 
+            'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 
+            'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+        ];
+
+        // Criar grid de UF
+        const ufGrid = document.getElementById('ufGrid');
+        estados.forEach(estado => {
+            const div = document.createElement('div');
+            div.className = 'uf-option';
+            div.textContent = estado;
+            div.dataset.uf = estado;
+            div.addEventListener('click', function() {
+                document.querySelectorAll('.uf-option').forEach(el => el.classList.remove('selected'));
+                this.classList.add('selected');
+                document.getElementById('uf').value = estado;
+                document.getElementById('ufError').style.display = 'none';
+                updateProgress();
+            });
+            ufGrid.appendChild(div);
+        });
+
+        // Preencher data/hora atual
+        function setCurrentDateTime() {
+            const now = new Date();
+            const dataAtual = now.toISOString().slice(0, 16);
+            document.getElementById('dataLead').value = dataAtual;
+        }
+        setCurrentDateTime();
+
+        // Custom Select com busca
+        function createCustomSelect(inputId, dropdownId, hiddenId, data, errorId) {
+            const input = document.getElementById(inputId);
+            const dropdown = document.getElementById(dropdownId);
+            const hidden = document.getElementById(hiddenId);
+            const errorMsg = document.getElementById(errorId);
+
+            // Criar opções
+            function renderOptions(filter = '') {
+                dropdown.innerHTML = '';
+                const filtered = data.filter(item => 
+                    item.nome.toLowerCase().includes(filter.toLowerCase())
+                );
+
+                if (filtered.length === 0) {
+                    dropdown.innerHTML = '<div class="custom-select-empty">Nenhum resultado encontrado</div>';
+                    return;
+                }
+
+                filtered.forEach(item => {
+                    const option = document.createElement('div');
+                    option.className = 'custom-select-option';
+                    option.textContent = item.nome;
+                    option.dataset.id = item.id;
+                    
+                    option.addEventListener('click', () => {
+                        input.value = item.nome;
+                        hidden.value = item.id;
+                        dropdown.classList.remove('active');
+                        input.classList.remove('input-error');
+                        errorMsg.style.display = 'none';
+                        updateProgress();
+                        
+                        // Marcar como selecionado
+                        document.querySelectorAll(`#${dropdownId} .custom-select-option`).forEach(o => 
+                            o.classList.remove('selected')
+                        );
+                        option.classList.add('selected');
+                    });
+
+                    dropdown.appendChild(option);
+                });
+            }
+
+            // Eventos do input
+            input.addEventListener('focus', () => {
+                renderOptions(input.value);
+                dropdown.classList.add('active');
+            });
+
+            input.addEventListener('input', (e) => {
+                hidden.value = ''; // Limpar seleção ao digitar
+                renderOptions(e.target.value);
+                dropdown.classList.add('active');
+            });
+
+            // Fechar ao clicar fora
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest(`#${inputId}`) && !e.target.closest(`#${dropdownId}`)) {
+                    dropdown.classList.remove('active');
+                }
+            });
+
+            // Inicializar
+            renderOptions();
+        }
+
+        // Inicializar selects customizados
+        createCustomSelect('comercialInput', 'comercialDropdown', 'comercialResponsavel', comerciais, 'comercialError');
+        createCustomSelect('consultorInput', 'consultorDropdown', 'consultorNucleo', consultores, 'consultorError');
+
+        // Máscara CNPJ
+        document.getElementById('documento').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 14) {
+                value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+                value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+                value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+                value = value.replace(/(\d{4})(\d)/, '$1-$2');
+            }
+            e.target.value = value;
+
+            // Validar em tempo real
+            const icon = document.getElementById('cnpjIcon');
+            if (value.replace(/\D/g, '').length === 14) {
+                if (validarCNPJ(value)) {
+                    icon.textContent = '✅';
+                    e.target.classList.remove('input-error');
+                    e.target.parentElement.classList.add('input-valid');
+                    document.getElementById('documentoError').style.display = 'none';
+                } else {
+                    icon.textContent = '❌';
+                    e.target.classList.add('input-error');
+                    document.getElementById('documentoError').style.display = 'block';
+                }
+            } else {
+                icon.textContent = '⏳';
+                e.target.classList.remove('input-error');
+                e.target.parentElement.classList.remove('input-valid');
+            }
+            updateProgress();
+        });
+
+        // Validação CNPJ
+        function validarCNPJ(cnpj) {
+            cnpj = cnpj.replace(/[^\d]+/g, '');
+            if (cnpj.length !== 14) return false;
+            if (/^(\d)\1+$/.test(cnpj)) return false;
+            
+            let tamanho = cnpj.length - 2;
+            let numeros = cnpj.substring(0, tamanho);
+            let digitos = cnpj.substring(tamanho);
+            let soma = 0;
+            let pos = tamanho - 7;
+            
+            for (let i = tamanho; i >= 1; i--) {
+                soma += numeros.charAt(tamanho - i) * pos--;
+                if (pos < 2) pos = 9;
+            }
+            
+            let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+            if (resultado != digitos.charAt(0)) return false;
+            
+            tamanho = tamanho + 1;
+            numeros = cnpj.substring(0, tamanho);
+            soma = 0;
+            pos = tamanho - 7;
+            
+            for (let i = tamanho; i >= 1; i--) {
+                soma += numeros.charAt(tamanho - i) * pos--;
+                if (pos < 2) pos = 9;
+            }
+            
+            resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+            if (resultado != digitos.charAt(1)) return false;
+            
+            return true;
+        }
+
+        // Contadores de caracteres
+        const assuntoInput = document.getElementById('assunto');
+        const assuntoCounter = document.getElementById('assuntoCounter');
+        const observacoesInput = document.getElementById('observacoes');
+        const observacoesCounter = document.getElementById('observacoesCounter');
+
+        assuntoInput.addEventListener('input', function() {
+            assuntoCounter.textContent = `${this.value.length}/200`;
+            updateProgress();
+        });
+
+        observacoesInput.addEventListener('input', function() {
+            observacoesCounter.textContent = `${this.value.length}/1000`;
+        });
+
+        // Barra de progresso
+        function updateProgress() {
+            const form = document.getElementById('leadForm');
+            const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
+            let filled = 0;
+            
+            inputs.forEach(input => {
+                if (input.type === 'hidden') {
+                    if (input.value) filled++;
+                } else if (input.value.trim()) {
+                    filled++;
+                }
+            });
+            
+            const progress = (filled / inputs.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Atualizar progresso ao mudar campos
+        document.querySelectorAll('input, select, textarea').forEach(element => {
+            element.addEventListener('input', updateProgress);
+            element.addEventListener('change', updateProgress);
+        });
+
+        // Mostrar alerta
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert ${type}`;
+            alert.style.display = 'block';
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 6000);
+        }
+
+        // Submit do formulário
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Validações
+            let isValid = true;
+            
+            // Validar CNPJ
+            const cnpj = document.getElementById('documento').value;
+            if (!validarCNPJ(cnpj)) {
+                document.getElementById('documento').classList.add('input-error');
+                document.getElementById('documentoError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validar UF
+            if (!document.getElementById('uf').value) {
+                document.getElementById('ufError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validar comercial
+            if (!document.getElementById('comercialResponsavel').value) {
+                document.getElementById('comercialInput').classList.add('input-error');
+                document.getElementById('comercialError').style.display = 'block';
+                isValid = false;
+            }
+            
+            // Validar consultor
+            if (!document.getElementById('consultorNucleo').value) {
+                document.getElementById('consultorInput').classList.add('input-error');
+                document.getElementById('consultorError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                showAlert('❌ Por favor, corrija os erros no formulário antes de enviar.', 'error');
+                return;
+            }
+            
+            // Coletar dados
+            const formData = {
+                dataLead: document.getElementById('dataLead').value,
+                canalOrigem: document.getElementById('canalOrigem').value,
+                linhaNegocio: document.getElementById('linhaNegocio').value,
+                cliente: document.getElementById('cliente').value,
+                documento: cnpj.replace(/\D/g, ''),
+                cidade: document.getElementById('cidade').value,
+                uf: document.getElementById('uf').value,
+                comoConheceu: document.getElementById('comoConheceu').value,
+                comercialResponsavel: document.getElementById('comercialResponsavel').value,
+                comercialNome: document.getElementById('comercialInput').value,
+                consultorNucleo: document.getElementById('consultorNucleo').value,
+                consultorNome: document.getElementById('consultorInput').value,
+                assunto: document.getElementById('assunto').value,
+                observacoes: document.getElementById('observacoes').value,
+                nomeRepresentante: document.getElementById('nomeRepresentante').value
+            };
+            
+            // Loading state
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            
+            try {
+                // SUBSTITUIR ESTA URL PELO SEU WEBHOOK DO N8N
+                const webhookUrl = 'https://SEU-N8N.com/webhook/gatilho-urgente';
+                
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    showAlert('✅ Gatilho cadastrado com sucesso! O comercial e consultor serão notificados.', 'success');
+                    
+                    // Reset do form
+                    document.getElementById('leadForm').reset();
+                    setCurrentDateTime();
+                    document.querySelectorAll('.uf-option, .selected').forEach(el => el.classList.remove('selected'));
+                    document.getElementById('comercialInput').value = '';
+                    document.getElementById('consultorInput').value = '';
+                    document.getElementById('comercialResponsavel').value = '';
+                    document.getElementById('consultorNucleo').value = '';
+                    document.getElementById('cnpjIcon').textContent = '⏳';
+                    assuntoCounter.textContent = '0/200';
+                    observacoesCounter.textContent = '0/1000';
+                    updateProgress();
+                } else {
+                    throw new Error('Erro ao cadastrar');
+                }
+            } catch (error) {
+                showAlert('❌ Erro ao cadastrar gatilho. Tente novamente ou contate o suporte técnico.', 'error');
+                console.error('Erro:', error);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+                submitBtn.innerHTML = originalText;
+            }
+        });
+
+        // Remover erros ao interagir
+        document.querySelectorAll('input, select, textarea').forEach(element => {
+            element.addEventListener('input', function() {
+                this.classList.remove('input-error');
+                const errorId = this.id + 'Error';
+                const errorElement = document.getElementById(errorId);
+                if (errorElement) {
+                    errorElement.style.display = 'none';
+                }
+            });
+        });
+
+        // Inicializar progresso
+        updateProgress();
+    </script>
+</body>
+</html>
