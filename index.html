@@ -589,22 +589,13 @@
                         <input type="datetime-local" id="dataLead" name="dataLead" readonly>
                     </div>
 
-                    <!-- Como nos conheceu -->
+                    <!-- Como nos conheceu (antigo Canal de Origem) -->
                     <div class="form-group">
                         <label for="comoConheceu">
                             <span class="icon">🔍</span>
                             Como nos conheceu?
                         </label>
-                        <input type="text" id="comoConheceu" name="comoConheceu" placeholder="Ex: Indicação de parceiro, Google, etc.">
-                    </div>
-
-                    <!-- Canal de Origem -->
-                    <div class="form-group">
-                        <label for="canalOrigem">
-                            <span class="icon">📢</span>
-                            Canal de Origem
-                        </label>
-                        <select id="canalOrigem" name="canalOrigem">
+                        <select id="comoConheceu" name="comoConheceu">
                             <option value="">Selecione...</option>
                             <option value="Anúncios Google">Anúncios Google</option>
                             <option value="Campanha de Indicação Interna">Campanha de Indicação Interna</option>
@@ -642,11 +633,13 @@
                         </label>
                         <select id="linhaNegocio" name="linhaNegocio">
                             <option value="">Selecione...</option>
-                            <option value="Turismo">Turismo</option>
-                            <option value="Câmbio">Câmbio</option>
-                            <option value="Corporativo">Corporativo</option>
-                            <option value="E-commerce">E-commerce</option>
-                            <option value="Outros">Outros</option>
+                            <option value="B2B">B2B</option>
+                            <option value="B2C">B2C</option>
+                            <option value="CCME">CCME</option>
+                            <option value="E-Fx">E-Fx</option>
+                            <option value="Corretoras">Corretoras</option>
+                            <option value="Consultorias">Consultorias</option>
+                            <option value="API">API</option>
                         </select>
                     </div>
                 </div>
@@ -791,8 +784,32 @@
                             <span class="icon">📌</span>
                             Assunto
                         </label>
-                        <input type="text" id="assunto" name="assunto" placeholder="Ex: Interesse em câmbio corporativo" maxlength="200">
-                        <div class="char-counter" id="assuntoCounter">0/200</div>
+                        <select id="assunto" name="assunto">
+                            <option value="">Selecione...</option>
+                            <option value="Agência de turismo">Agência de turismo</option>
+                            <option value="Carta de crédito">Carta de crédito</option>
+                            <option value="Correspondente cambial">Correspondente cambial</option>
+                            <option value="Cripto">Cripto</option>
+                            <option value="Exportação">Exportação</option>
+                            <option value="Facilitadoras">Facilitadoras</option>
+                            <option value="Importação">Importação</option>
+                            <option value="Intermediação / Corretora">Intermediação / Corretora</option>
+                            <option value="Remessadoras">Remessadoras</option>
+                            <option value="Recebimento - Aluguel">Recebimento - Aluguel</option>
+                            <option value="Recebimento - Disponibilidade">Recebimento - Disponibilidade</option>
+                            <option value="Recebimento - Doação / manutenção">Recebimento - Doação / manutenção</option>
+                            <option value="Recebimento - Empréstimo">Recebimento - Empréstimo</option>
+                            <option value="Recebimento - Investimento">Recebimento - Investimento</option>
+                            <option value="Recebimento - Prestação de serviços">Recebimento - Prestação de serviços</option>
+                            <option value="Recebimento - Compra de imóvel">Recebimento - Compra de imóvel</option>
+                            <option value="Pagamento - Aluguel">Pagamento - Aluguel</option>
+                            <option value="Pagamento - Disponibilidade">Pagamento - Disponibilidade</option>
+                            <option value="Pagamento - Doação / manutenção">Pagamento - Doação / manutenção</option>
+                            <option value="Pagamento - Empréstimo">Pagamento - Empréstimo</option>
+                            <option value="Pagamento - Investimento">Pagamento - Investimento</option>
+                            <option value="Pagamento - Prestação de serviços">Pagamento - Prestação de serviços</option>
+                            <option value="Pagamento - Venda de imóvel">Pagamento - Venda de imóvel</option>
+                        </select>
                     </div>
 
                     <!-- Observações -->
@@ -1151,15 +1168,8 @@
         }
 
         // Contadores de caracteres
-        const assuntoInput = document.getElementById('assunto');
-        const assuntoCounter = document.getElementById('assuntoCounter');
         const observacoesInput = document.getElementById('observacoes');
         const observacoesCounter = document.getElementById('observacoesCounter');
-
-        assuntoInput.addEventListener('input', function() {
-            assuntoCounter.textContent = `${this.value.length}/200`;
-            updateProgress();
-        });
 
         observacoesInput.addEventListener('input', function() {
             observacoesCounter.textContent = `${this.value.length}/1000`;
@@ -1231,7 +1241,6 @@
             // Coletar dados
             const formData = {
                 dataLead: document.getElementById('dataLead').value,
-                canalOrigem: document.getElementById('canalOrigem').value,
                 comoConheceu: document.getElementById('comoConheceu').value,
                 canalLead: document.getElementById('canalLead').value,
                 linhaNegocio: document.getElementById('linhaNegocio').value,
@@ -1280,7 +1289,6 @@
                     document.getElementById('comercialResponsavel').value = '';
                     document.getElementById('consultorNucleo').value = '';
                     document.getElementById('docIcon').textContent = '⏳';
-                    assuntoCounter.textContent = '0/200';
                     observacoesCounter.textContent = '0/1000';
                     
                     // Remover telefones e emails extras
