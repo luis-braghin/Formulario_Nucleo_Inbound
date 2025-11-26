@@ -197,6 +197,63 @@
             margin-top: 6px;
         }
 
+        /* Multi-input group */
+        .multi-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .input-with-add {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .input-with-add input {
+            flex: 1;
+        }
+
+        .add-btn {
+            padding: 14px 16px;
+            background: #212644;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            min-width: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-btn:hover {
+            background: #2a3150;
+            transform: translateY(-2px);
+        }
+
+        .remove-btn {
+            padding: 14px 16px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            min-width: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .remove-btn:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+
         /* Custom Select com Busca */
         .custom-select {
             position: relative;
@@ -528,9 +585,17 @@
                         <label for="dataLead">
                             <span class="icon">📅</span>
                             Data do Lead
-                            <span class="required">*</span>
                         </label>
-                        <input type="datetime-local" id="dataLead" name="dataLead" required readonly>
+                        <input type="datetime-local" id="dataLead" name="dataLead" readonly>
+                    </div>
+
+                    <!-- Como nos conheceu -->
+                    <div class="form-group">
+                        <label for="comoConheceu">
+                            <span class="icon">🔍</span>
+                            Como nos conheceu?
+                        </label>
+                        <input type="text" id="comoConheceu" name="comoConheceu" placeholder="Ex: Indicação de parceiro, Google, etc.">
                     </div>
 
                     <!-- Canal de Origem -->
@@ -538,9 +603,8 @@
                         <label for="canalOrigem">
                             <span class="icon">📢</span>
                             Canal de Origem
-                            <span class="required">*</span>
                         </label>
-                        <select id="canalOrigem" name="canalOrigem" required>
+                        <select id="canalOrigem" name="canalOrigem">
                             <option value="">Selecione...</option>
                             <option value="Anúncios Google">Anúncios Google</option>
                             <option value="Campanha de Indicação Interna">Campanha de Indicação Interna</option>
@@ -555,14 +619,28 @@
                         </select>
                     </div>
 
+                    <!-- Canal do Lead -->
+                    <div class="form-group">
+                        <label for="canalLead">
+                            <span class="icon">💬</span>
+                            Canal do Lead
+                        </label>
+                        <select id="canalLead" name="canalLead">
+                            <option value="">Selecione...</option>
+                            <option value="E-mail">E-mail</option>
+                            <option value="Indicação Corretora">Indicação Corretora</option>
+                            <option value="Telefone">Telefone</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                        </select>
+                    </div>
+
                     <!-- Linha de Negócio -->
                     <div class="form-group">
                         <label for="linhaNegocio">
                             <span class="icon">💼</span>
                             Linha de Negócio
-                            <span class="required">*</span>
                         </label>
-                        <select id="linhaNegocio" name="linhaNegocio" required>
+                        <select id="linhaNegocio" name="linhaNegocio">
                             <option value="">Selecione...</option>
                             <option value="Turismo">Turismo</option>
                             <option value="Câmbio">Câmbio</option>
@@ -571,44 +649,33 @@
                             <option value="Outros">Outros</option>
                         </select>
                     </div>
-
-                    <!-- Como nos conheceu -->
-                    <div class="form-group">
-                        <label for="comoConheceu">
-                            <span class="icon">🔍</span>
-                            Como nos conheceu?
-                        </label>
-                        <input type="text" id="comoConheceu" name="comoConheceu" placeholder="Ex: Indicação de parceiro, Google, etc.">
-                    </div>
                 </div>
 
                 <hr class="section-divider">
 
-                <!-- Seção 2: Dados da Empresa -->
-                <div class="section-title">🏢 Dados da Empresa</div>
+                <!-- Seção 2: Dados do Cliente -->
+                <div class="section-title">🏢 Dados do Cliente</div>
 
                 <div class="form-grid">
                     <!-- Cliente -->
                     <div class="form-group">
                         <label for="cliente">
                             <span class="icon">🏪</span>
-                            Nome da Empresa
-                            <span class="required">*</span>
+                            Nome do Cliente
                         </label>
-                        <input type="text" id="cliente" name="cliente" placeholder="Ex: Empresa LTDA" required>
+                        <input type="text" id="cliente" name="cliente" placeholder="Ex: Empresa LTDA ou Nome Completo">
                         <span class="error-message" id="clienteError">Campo obrigatório</span>
                     </div>
 
-                    <!-- CNPJ -->
+                    <!-- CPF/CNPJ -->
                     <div class="form-group">
                         <label for="documento">
                             <span class="icon">📄</span>
-                            CNPJ
-                            <span class="required">*</span>
+                            CPF/CNPJ
                         </label>
-                        <input type="text" id="documento" name="documento" placeholder="00.000.000/0000-00" required maxlength="18">
-                        <span class="input-icon" id="cnpjIcon">⏳</span>
-                        <span class="error-message" id="documentoError">CNPJ inválido</span>
+                        <input type="text" id="documento" name="documento" placeholder="000.000.000-00 ou 00.000.000/0000-00" maxlength="18">
+                        <span class="input-icon" id="docIcon">⏳</span>
+                        <span class="error-message" id="documentoError">Documento inválido</span>
                     </div>
 
                     <!-- Cidade -->
@@ -616,9 +683,8 @@
                         <label for="cidade">
                             <span class="icon">🌆</span>
                             Cidade
-                            <span class="required">*</span>
                         </label>
-                        <input type="text" id="cidade" name="cidade" placeholder="Ex: São Paulo" required>
+                        <input type="text" id="cidade" name="cidade" placeholder="Ex: São Paulo">
                     </div>
 
                     <!-- Nome do Representante -->
@@ -626,9 +692,36 @@
                         <label for="nomeRepresentante">
                             <span class="icon">👤</span>
                             Nome do Representante
-                            <span class="required">*</span>
                         </label>
-                        <input type="text" id="nomeRepresentante" name="nomeRepresentante" placeholder="Nome da pessoa de contato" required>
+                        <input type="text" id="nomeRepresentante" name="nomeRepresentante" placeholder="Nome da pessoa de contato">
+                    </div>
+
+                    <!-- Telefones -->
+                    <div class="form-group">
+                        <label>
+                            <span class="icon">📞</span>
+                            Telefone(s)
+                        </label>
+                        <div class="multi-input-group" id="telefonesGroup">
+                            <div class="input-with-add">
+                                <input type="tel" id="telefone1" name="telefone1" placeholder="(00) 00000-0000">
+                                <button type="button" class="add-btn" onclick="addTelefone()">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Emails -->
+                    <div class="form-group">
+                        <label>
+                            <span class="icon">📧</span>
+                            E-mail(s)
+                        </label>
+                        <div class="multi-input-group" id="emailsGroup">
+                            <div class="input-with-add">
+                                <input type="email" id="email1" name="email1" placeholder="exemplo@email.com">
+                                <button type="button" class="add-btn" onclick="addEmail()">+</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -637,9 +730,8 @@
                     <label>
                         <span class="icon">📍</span>
                         Estado (UF)
-                        <span class="required">*</span>
                     </label>
-                    <input type="hidden" id="uf" name="uf" required>
+                    <input type="hidden" id="uf" name="uf">
                     <div class="uf-grid" id="ufGrid"></div>
                     <span class="error-message" id="ufError">Selecione um estado</span>
                 </div>
@@ -655,7 +747,6 @@
                         <label for="comercialInput">
                             <span class="icon">🎯</span>
                             Comercial Responsável
-                            <span class="required">*</span>
                             <span class="hint">(digite para filtrar)</span>
                         </label>
                         <input 
@@ -663,9 +754,8 @@
                             id="comercialInput" 
                             placeholder="Digite o nome do comercial..."
                             autocomplete="off"
-                            required
                         >
-                        <input type="hidden" id="comercialResponsavel" name="comercialResponsavel" required>
+                        <input type="hidden" id="comercialResponsavel" name="comercialResponsavel">
                         <div class="custom-select-dropdown" id="comercialDropdown"></div>
                         <span class="error-message" id="comercialError">Selecione um comercial</span>
                     </div>
@@ -675,7 +765,6 @@
                         <label for="consultorInput">
                             <span class="icon">💡</span>
                             Consultor do Núcleo
-                            <span class="required">*</span>
                             <span class="hint">(digite para filtrar)</span>
                         </label>
                         <input 
@@ -683,9 +772,8 @@
                             id="consultorInput" 
                             placeholder="Digite o nome do consultor..."
                             autocomplete="off"
-                            required
                         >
-                        <input type="hidden" id="consultorNucleo" name="consultorNucleo" required>
+                        <input type="hidden" id="consultorNucleo" name="consultorNucleo">
                         <div class="custom-select-dropdown" id="consultorDropdown"></div>
                         <span class="error-message" id="consultorError">Selecione um consultor</span>
                     </div>
@@ -702,9 +790,8 @@
                         <label for="assunto">
                             <span class="icon">📌</span>
                             Assunto
-                            <span class="required">*</span>
                         </label>
-                        <input type="text" id="assunto" name="assunto" placeholder="Ex: Interesse em câmbio corporativo" required maxlength="200">
+                        <input type="text" id="assunto" name="assunto" placeholder="Ex: Interesse em câmbio corporativo" maxlength="200">
                         <div class="char-counter" id="assuntoCounter">0/200</div>
                     </div>
 
@@ -729,8 +816,51 @@
     <script>
         // Dados dos comerciais e consultores
         const comerciais = [
-            { id: '110071556', nome: 'Ana Paula Mattos de Moura' },
-            { id: '110071557', nome: 'Beatriz Felipe Amaro Pereira' }
+            { id: '1', nome: 'ALEXANDRE PROMENZIO DE SOUZA' },
+            { id: '2', nome: 'ALINE ALEXIA FERREIRA SANTOS' },
+            { id: '3', nome: 'ALLAN GONZAGA DE OLIVEIRA' },
+            { id: '4', nome: 'AMABILE IENO PEREIRA' },
+            { id: '5', nome: 'ANA PAULA MATTOS DE MOURA' },
+            { id: '6', nome: 'BEATRIZ FELIPE AMARO PEREIRA' },
+            { id: '7', nome: 'BRUNO LUIS MARTINELLI' },
+            { id: '8', nome: 'CAIO MARTINS' },
+            { id: '9', nome: 'CAIO VICTOR NASCIMENTO RIBEIRO' },
+            { id: '10', nome: 'CAMILA VILLA MARIN' },
+            { id: '11', nome: 'CASSIA SAKAI GOMES' },
+            { id: '12', nome: 'CRISLANDIA ALVES DE SOUSA' },
+            { id: '13', nome: 'DAIANY STEPHANY COSTA TOLEDO' },
+            { id: '14', nome: 'DANILO MARTINS TEIXEIRA' },
+            { id: '15', nome: 'EDER LEAO DE SOUSA' },
+            { id: '16', nome: 'EDSON BATISTA LIMA SOBRINHO' },
+            { id: '17', nome: 'ERIK YUKIO TANAKA' },
+            { id: '18', nome: 'ERIKA ROCHA DIAS LEAO' },
+            { id: '19', nome: 'FERNANDA ALVES ARAUJO' },
+            { id: '20', nome: 'GABRIELLE FIGUEIRA DA ROCHA' },
+            { id: '21', nome: 'GREGORIO MONTEIRO COSTA RHEINGANTZ' },
+            { id: '22', nome: 'HELISAMA STADI DOS SANTOS SOUZA' },
+            { id: '23', nome: 'JACKELINE PEREIRA DE GODOI' },
+            { id: '24', nome: 'JENNIFER CRESPO IORIO' },
+            { id: '25', nome: 'JULIANA CESAR DE OLIVEIRA' },
+            { id: '26', nome: 'KELLEN SOARES' },
+            { id: '27', nome: 'LAURA ROCHA MARQUEZ' },
+            { id: '28', nome: 'LEANDRO REIS SOUSA' },
+            { id: '29', nome: 'LEONARDO MONTEIRO TAVARES' },
+            { id: '30', nome: 'LILIAN CAMARA CAFARELLA' },
+            { id: '31', nome: 'LUIZ RAFAEL BOMBONATTI' },
+            { id: '32', nome: 'MARCOS MENDES DE CASTRO' },
+            { id: '33', nome: 'MARIA EUGENIA ALVARENGA MARQUES AMARAL' },
+            { id: '34', nome: 'MARIANA ZAMBRANO GIMENEZ' },
+            { id: '35', nome: 'MIRIAM URIZAR VELASCO' },
+            { id: '36', nome: 'PATRIK POLLINI DE JESUS' },
+            { id: '37', nome: 'REJAINE APARECIDA TOSTA TORRES BARBIERI' },
+            { id: '38', nome: 'RENATA LIMA SEGRETTI' },
+            { id: '39', nome: 'SAMILLY SILVA DE FARIAS' },
+            { id: '40', nome: 'TADEU HENRIQUE FACCHINI' },
+            { id: '41', nome: 'TAMARA KELY NABETA TRENTO' },
+            { id: '42', nome: 'THAIS CAMILA LOPES DE MELO' },
+            { id: '43', nome: 'VALQUIRIA ROCHA DE SOUZA' },
+            { id: '44', nome: 'VICTOR BRITO ROCHA CAZARINI' },
+            { id: '45', nome: 'VINICIUS EMILIO GIEHL' }
         ];
 
         const consultores = [
@@ -764,6 +894,10 @@
             'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
         ];
 
+        // Contadores para telefones e emails adicionais
+        let telefoneCount = 1;
+        let emailCount = 1;
+
         // Criar grid de UF
         const ufGrid = document.getElementById('ufGrid');
         estados.forEach(estado => {
@@ -780,6 +914,46 @@
             });
             ufGrid.appendChild(div);
         });
+
+        // Função para adicionar telefone
+        function addTelefone() {
+            if (telefoneCount >= 2) return;
+            telefoneCount++;
+            const group = document.getElementById('telefonesGroup');
+            const div = document.createElement('div');
+            div.className = 'input-with-add';
+            div.innerHTML = `
+                <input type="tel" id="telefone${telefoneCount}" name="telefone${telefoneCount}" placeholder="(00) 00000-0000">
+                <button type="button" class="remove-btn" onclick="removeTelefone(this)">−</button>
+            `;
+            group.appendChild(div);
+        }
+
+        // Função para remover telefone
+        function removeTelefone(btn) {
+            btn.parentElement.remove();
+            telefoneCount--;
+        }
+
+        // Função para adicionar email
+        function addEmail() {
+            if (emailCount >= 2) return;
+            emailCount++;
+            const group = document.getElementById('emailsGroup');
+            const div = document.createElement('div');
+            div.className = 'input-with-add';
+            div.innerHTML = `
+                <input type="email" id="email${emailCount}" name="email${emailCount}" placeholder="exemplo@email.com">
+                <button type="button" class="remove-btn" onclick="removeEmail(this)">−</button>
+            `;
+            group.appendChild(div);
+        }
+
+        // Função para remover email
+        function removeEmail(btn) {
+            btn.parentElement.remove();
+            emailCount--;
+        }
 
         // Preencher data/hora atual
         function setCurrentDateTime() {
@@ -860,37 +1034,85 @@
         createCustomSelect('comercialInput', 'comercialDropdown', 'comercialResponsavel', comerciais, 'comercialError');
         createCustomSelect('consultorInput', 'consultorDropdown', 'consultorNucleo', consultores, 'consultorError');
 
-        // Máscara CNPJ
+        // Máscara CPF/CNPJ
         document.getElementById('documento').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
-            if (value.length <= 14) {
+            const icon = document.getElementById('docIcon');
+            
+            if (value.length <= 11) {
+                // Máscara CPF
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                
+                if (value.replace(/\D/g, '').length === 11) {
+                    if (validarCPF(value)) {
+                        icon.textContent = '✅';
+                        e.target.classList.remove('input-error');
+                        e.target.parentElement.classList.add('input-valid');
+                        document.getElementById('documentoError').style.display = 'none';
+                    } else {
+                        icon.textContent = '❌';
+                        e.target.classList.add('input-error');
+                        document.getElementById('documentoError').style.display = 'block';
+                    }
+                } else {
+                    icon.textContent = '⏳';
+                    e.target.classList.remove('input-error');
+                    e.target.parentElement.classList.remove('input-valid');
+                }
+            } else {
+                // Máscara CNPJ
                 value = value.replace(/^(\d{2})(\d)/, '$1.$2');
                 value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
                 value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
                 value = value.replace(/(\d{4})(\d)/, '$1-$2');
-            }
-            e.target.value = value;
-
-            // Validar em tempo real
-            const icon = document.getElementById('cnpjIcon');
-            if (value.replace(/\D/g, '').length === 14) {
-                if (validarCNPJ(value)) {
-                    icon.textContent = '✅';
-                    e.target.classList.remove('input-error');
-                    e.target.parentElement.classList.add('input-valid');
-                    document.getElementById('documentoError').style.display = 'none';
+                
+                if (value.replace(/\D/g, '').length === 14) {
+                    if (validarCNPJ(value)) {
+                        icon.textContent = '✅';
+                        e.target.classList.remove('input-error');
+                        e.target.parentElement.classList.add('input-valid');
+                        document.getElementById('documentoError').style.display = 'none';
+                    } else {
+                        icon.textContent = '❌';
+                        e.target.classList.add('input-error');
+                        document.getElementById('documentoError').style.display = 'block';
+                    }
                 } else {
-                    icon.textContent = '❌';
-                    e.target.classList.add('input-error');
-                    document.getElementById('documentoError').style.display = 'block';
+                    icon.textContent = '⏳';
+                    e.target.classList.remove('input-error');
+                    e.target.parentElement.classList.remove('input-valid');
                 }
-            } else {
-                icon.textContent = '⏳';
-                e.target.classList.remove('input-error');
-                e.target.parentElement.classList.remove('input-valid');
             }
+            
+            e.target.value = value;
             updateProgress();
         });
+
+        // Validação CPF
+        function validarCPF(cpf) {
+            cpf = cpf.replace(/[^\d]+/g, '');
+            if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+            
+            let soma = 0;
+            for (let i = 0; i < 9; i++) {
+                soma += parseInt(cpf.charAt(i)) * (10 - i);
+            }
+            let resto = 11 - (soma % 11);
+            let digito1 = resto === 10 || resto === 11 ? 0 : resto;
+            
+            if (digito1 !== parseInt(cpf.charAt(9))) return false;
+            
+            soma = 0;
+            for (let i = 0; i < 10; i++) {
+                soma += parseInt(cpf.charAt(i)) * (11 - i);
+            }
+            resto = 11 - (soma % 11);
+            let digito2 = resto === 10 || resto === 11 ? 0 : resto;
+            
+            return digito2 === parseInt(cpf.charAt(10));
+        }
 
         // Validação CNPJ
         function validarCNPJ(cnpj) {
@@ -946,18 +1168,21 @@
         // Barra de progresso
         function updateProgress() {
             const form = document.getElementById('leadForm');
-            const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
+            const inputs = form.querySelectorAll('input, select, textarea');
             let filled = 0;
+            let total = 0;
             
             inputs.forEach(input => {
-                if (input.type === 'hidden') {
-                    if (input.value) filled++;
-                } else if (input.value.trim()) {
+                // Ignorar campos hidden de IDs e readonly
+                if (input.type === 'hidden' || input.readOnly) return;
+                
+                total++;
+                if (input.value.trim()) {
                     filled++;
                 }
             });
             
-            const progress = (filled / inputs.length) * 100;
+            const progress = total > 0 ? (filled / total) * 100 : 0;
             document.getElementById('progressFill').style.width = progress + '%';
         }
 
@@ -985,59 +1210,44 @@
         document.getElementById('leadForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Validações
-            let isValid = true;
+            // Coletar todos os telefones e emails
+            const telefones = [];
+            const emails = [];
             
-            // Validar CNPJ
-            const cnpj = document.getElementById('documento').value;
-            if (!validarCNPJ(cnpj)) {
-                document.getElementById('documento').classList.add('input-error');
-                document.getElementById('documentoError').style.display = 'block';
-                isValid = false;
+            for (let i = 1; i <= telefoneCount; i++) {
+                const tel = document.getElementById(`telefone${i}`);
+                if (tel && tel.value.trim()) {
+                    telefones.push(tel.value.trim());
+                }
             }
             
-            // Validar UF
-            if (!document.getElementById('uf').value) {
-                document.getElementById('ufError').style.display = 'block';
-                isValid = false;
-            }
-            
-            // Validar comercial
-            if (!document.getElementById('comercialResponsavel').value) {
-                document.getElementById('comercialInput').classList.add('input-error');
-                document.getElementById('comercialError').style.display = 'block';
-                isValid = false;
-            }
-            
-            // Validar consultor
-            if (!document.getElementById('consultorNucleo').value) {
-                document.getElementById('consultorInput').classList.add('input-error');
-                document.getElementById('consultorError').style.display = 'block';
-                isValid = false;
-            }
-            
-            if (!isValid) {
-                showAlert('❌ Por favor, corrija os erros no formulário antes de enviar.', 'error');
-                return;
+            for (let i = 1; i <= emailCount; i++) {
+                const em = document.getElementById(`email${i}`);
+                if (em && em.value.trim()) {
+                    emails.push(em.value.trim());
+                }
             }
             
             // Coletar dados
             const formData = {
                 dataLead: document.getElementById('dataLead').value,
                 canalOrigem: document.getElementById('canalOrigem').value,
+                comoConheceu: document.getElementById('comoConheceu').value,
+                canalLead: document.getElementById('canalLead').value,
                 linhaNegocio: document.getElementById('linhaNegocio').value,
                 cliente: document.getElementById('cliente').value,
-                documento: cnpj.replace(/\D/g, ''),
+                documento: document.getElementById('documento').value.replace(/\D/g, ''),
                 cidade: document.getElementById('cidade').value,
                 uf: document.getElementById('uf').value,
-                comoConheceu: document.getElementById('comoConheceu').value,
+                nomeRepresentante: document.getElementById('nomeRepresentante').value,
+                telefones: telefones,
+                emails: emails,
                 comercialResponsavel: document.getElementById('comercialResponsavel').value,
                 comercialNome: document.getElementById('comercialInput').value,
                 consultorNucleo: document.getElementById('consultorNucleo').value,
                 consultorNome: document.getElementById('consultorInput').value,
                 assunto: document.getElementById('assunto').value,
-                observacoes: document.getElementById('observacoes').value,
-                nomeRepresentante: document.getElementById('nomeRepresentante').value
+                observacoes: document.getElementById('observacoes').value
             };
             
             // Loading state
@@ -1069,9 +1279,26 @@
                     document.getElementById('consultorInput').value = '';
                     document.getElementById('comercialResponsavel').value = '';
                     document.getElementById('consultorNucleo').value = '';
-                    document.getElementById('cnpjIcon').textContent = '⏳';
+                    document.getElementById('docIcon').textContent = '⏳';
                     assuntoCounter.textContent = '0/200';
                     observacoesCounter.textContent = '0/1000';
+                    
+                    // Remover telefones e emails extras
+                    telefoneCount = 1;
+                    emailCount = 1;
+                    document.getElementById('telefonesGroup').innerHTML = `
+                        <div class="input-with-add">
+                            <input type="tel" id="telefone1" name="telefone1" placeholder="(00) 00000-0000">
+                            <button type="button" class="add-btn" onclick="addTelefone()">+</button>
+                        </div>
+                    `;
+                    document.getElementById('emailsGroup').innerHTML = `
+                        <div class="input-with-add">
+                            <input type="email" id="email1" name="email1" placeholder="exemplo@email.com">
+                            <button type="button" class="add-btn" onclick="addEmail()">+</button>
+                        </div>
+                    `;
+                    
                     updateProgress();
                 } else {
                     throw new Error('Erro ao cadastrar');
