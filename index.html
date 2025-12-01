@@ -1280,34 +1280,7 @@
                 if (response.ok) {
                     showAlert('✅ Gatilho cadastrado com sucesso! O comercial e consultor serão notificados.', 'success');
                     
-                    // Reset do form
-                    document.getElementById('leadForm').reset();
-                    setCurrentDateTime();
-                    document.querySelectorAll('.uf-option, .selected').forEach(el => el.classList.remove('selected'));
-                    document.getElementById('comercialInput').value = '';
-                    document.getElementById('consultorInput').value = '';
-                    document.getElementById('comercialResponsavel').value = '';
-                    document.getElementById('consultorNucleo').value = '';
-                    document.getElementById('docIcon').textContent = '⏳';
-                    observacoesCounter.textContent = '0/1000';
-                    
-                    // Remover telefones e emails extras
-                    telefoneCount = 1;
-                    emailCount = 1;
-                    document.getElementById('telefonesGroup').innerHTML = `
-                        <div class="input-with-add">
-                            <input type="tel" id="telefone1" name="telefone1" placeholder="(00) 00000-0000">
-                            <button type="button" class="add-btn" onclick="addTelefone()">+</button>
-                        </div>
-                    `;
-                    document.getElementById('emailsGroup').innerHTML = `
-                        <div class="input-with-add">
-                            <input type="email" id="email1" name="email1" placeholder="exemplo@email.com">
-                            <button type="button" class="add-btn" onclick="addEmail()">+</button>
-                        </div>
-                    `;
-                    
-                    updateProgress();
+                    // Mantém o formulário preenchido (sem reset)
                 } else {
                     throw new Error('Erro ao cadastrar');
                 }
