@@ -972,13 +972,16 @@ const comerciais = [
             emailCount--;
         }
 
-        // Preencher data/hora atual
-        function setCurrentDateTime() {
-            const now = new Date();
-            const dataAtual = now.toISOString().slice(0, 16);
-            document.getElementById('dataLead').value = dataAtual;
-        }
-        setCurrentDateTime();
+       // Preencher data/hora atual - CORRIGIDO PARA TIMEZONE BRASIL
+function setCurrentDateTime() {
+    const now = new Date();
+    // Ajustar para timezone de São Paulo (UTC-3)
+    const offset = now.getTimezoneOffset() * 60000; // offset em millisegundos
+    const brazilTime = new Date(now.getTime() - offset);
+    const dataAtual = brazilTime.toISOString().slice(0, 16);
+    document.getElementById('dataLead').value = dataAtual;
+}
+setCurrentDateTime();
 
         // Custom Select com busca
         function createCustomSelect(inputId, dropdownId, hiddenId, data, errorId) {
