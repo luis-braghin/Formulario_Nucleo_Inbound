@@ -616,15 +616,15 @@
                             <span class="icon">💬</span>
                             Canal do Lead
                         </label>
-                       <select id="canalLead" name="canalLead">
-    <option value="">Selecione...</option>
-    <option value="E-mail">E-mail</option>
-    <option value="Indicação Corretora">Indicação Corretora</option>
-    <option value="Telefone">Telefone</option>
-    <option value="WhatsApp">WhatsApp</option>
-    <option value="WhatsApp (Tim)">WhatsApp (Tim)</option>
-</select>
-
+                        <select id="canalLead" name="canalLead">
+                            <option value="">Selecione...</option>
+                            <option value="E-mail">E-mail</option>
+                            <option value="Indicação Corretora">Indicação Corretora</option>
+                            <option value="Telefone">Telefone</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="WhatsApp (Tim)">WhatsApp (Tim)</option>
+                        </select>
+                    </div>
 
                     <!-- Linha de Negócio -->
                     <div class="form-group">
@@ -833,53 +833,53 @@
 
     <script>
         // Dados dos comerciais e consultores
-const comerciais = [
-    { id: '110071553', nome: 'Alexandre Promenzio De Souza' },
-    { id: '110071554', nome: 'Aline Alexia Ferreira Santos' },
-    { id: '110071555', nome: 'Allan Gonzaga De Oliveira' },
-    { id: '110070793', nome: 'Amabile Ieno Pereira' },
-    { id: '110071556', nome: 'Ana Paula Mattos De Moura' },
-    { id: '110071557', nome: 'Beatriz Felipe Amaro Pereira' },
-    { id: '110071613', nome: 'Bruno Luis Martinelli' },
-    { id: '110071558', nome: 'Caio Martins' },
-    { id: '110071559', nome: 'Caio Victor Nascimento Ribeiro' },
-    { id: '110071560', nome: 'Camila Villa Marin' },
-    { id: '110071562', nome: 'Cassia Sakai Gomes' },
-    { id: '110070786', nome: 'Crislandia Alves De Sousa' },
-    { id: '110070788', nome: 'Daiany Stephany Costa Toledo' },
-    { id: '110070792', nome: 'Danilo Martins' },
-    { id: '110071563', nome: 'Eder Leao De Sousa' },
-    { id: '110071564', nome: 'Edson Batista Lima Sobrinho' },
-    { id: '110071565', nome: 'Erik Yukio Tanaka' },
-    { id: '110070787', nome: 'Erika Rocha Dias Leao' },
-    { id: '110071566', nome: 'Fernanda Alves Araujo' },
-    { id: '110071567', nome: 'Gabrielle Figueira Da Rocha' },
-    { id: '110071568', nome: 'Gregorio Monteiro Costa Rheingantz' },
-    { id: '110071569', nome: 'Helisama Stadi Dos Santos Souza' },
-    { id: '110071570', nome: 'Jackeline Pereira De Godoi' },
-    { id: '110071571', nome: 'Jennifer Crespo Iorio' },
-    { id: '110071572', nome: 'Juliana Cesar De Oliveira' },
-    { id: '110073945', nome: 'Kellen Soares' },
-    { id: '110071573', nome: 'Laura Rocha Marquez' },
-    { id: '110071574', nome: 'Leandro Reis Sousa' },
-    { id: '110071575', nome: 'Leonardo Monteiro Tavares' },
-    { id: '110071576', nome: 'Lilian Camara Cafarella' },
-    { id: '110071616', nome: 'Luiz Rafael Bombonatti' },
-    { id: '110071578', nome: 'Marcos Mendes De Castro' },
-    { id: '110071579', nome: 'Maria Eugenia Alvarenga Marques Amaral' },
-    { id: '110070789', nome: 'Mariana Zambrano Gimenez' },
-    { id: '110071580', nome: 'Miriam Urizar Velasco' },
-    { id: '110071581', nome: 'Patrik Pollini De Jesus' },
-    { id: '110071583', nome: 'Rejaine Aparecida Tosta Torres Barbieri' },
-    { id: '110070790', nome: 'Renata Lima Segretti' },
-    { id: '110071585', nome: 'Samilly Silva De Farias' },
-    { id: '110073946', nome: 'Tadeu Henrique Facchini' },
-    { id: '110071586', nome: 'Tamara Kely Nabeta Trento' },
-    { id: '110070907', nome: 'Thais Camila Lopes De Melo' },
-    { id: '110071587', nome: 'Valquiria Rocha De Souza' },
-    { id: '110070791', nome: 'Victor Brito Rocha Cazarini' },
-    { id: '110071588', nome: 'Vinicius Emilio Giehl' }
-];
+        const comerciais = [
+            { id: '110071553', nome: 'Alexandre Promenzio De Souza' },
+            { id: '110071554', nome: 'Aline Alexia Ferreira Santos' },
+            { id: '110071555', nome: 'Allan Gonzaga De Oliveira' },
+            { id: '110070793', nome: 'Amabile Ieno Pereira' },
+            { id: '110071556', nome: 'Ana Paula Mattos De Moura' },
+            { id: '110071557', nome: 'Beatriz Felipe Amaro Pereira' },
+            { id: '110071613', nome: 'Bruno Luis Martinelli' },
+            { id: '110071558', nome: 'Caio Martins' },
+            { id: '110071559', nome: 'Caio Victor Nascimento Ribeiro' },
+            { id: '110071560', nome: 'Camila Villa Marin' },
+            { id: '110071562', nome: 'Cassia Sakai Gomes' },
+            { id: '110070786', nome: 'Crislandia Alves De Sousa' },
+            { id: '110070788', nome: 'Daiany Stephany Costa Toledo' },
+            { id: '110070792', nome: 'Danilo Martins' },
+            { id: '110071563', nome: 'Eder Leao De Sousa' },
+            { id: '110071564', nome: 'Edson Batista Lima Sobrinho' },
+            { id: '110071565', nome: 'Erik Yukio Tanaka' },
+            { id: '110070787', nome: 'Erika Rocha Dias Leao' },
+            { id: '110071566', nome: 'Fernanda Alves Araujo' },
+            { id: '110071567', nome: 'Gabrielle Figueira Da Rocha' },
+            { id: '110071568', nome: 'Gregorio Monteiro Costa Rheingantz' },
+            { id: '110071569', nome: 'Helisama Stadi Dos Santos Souza' },
+            { id: '110071570', nome: 'Jackeline Pereira De Godoi' },
+            { id: '110071571', nome: 'Jennifer Crespo Iorio' },
+            { id: '110071572', nome: 'Juliana Cesar De Oliveira' },
+            { id: '110073945', nome: 'Kellen Soares' },
+            { id: '110071573', nome: 'Laura Rocha Marquez' },
+            { id: '110071574', nome: 'Leandro Reis Sousa' },
+            { id: '110071575', nome: 'Leonardo Monteiro Tavares' },
+            { id: '110071576', nome: 'Lilian Camara Cafarella' },
+            { id: '110071616', nome: 'Luiz Rafael Bombonatti' },
+            { id: '110071578', nome: 'Marcos Mendes De Castro' },
+            { id: '110071579', nome: 'Maria Eugenia Alvarenga Marques Amaral' },
+            { id: '110070789', nome: 'Mariana Zambrano Gimenez' },
+            { id: '110071580', nome: 'Miriam Urizar Velasco' },
+            { id: '110071581', nome: 'Patrik Pollini De Jesus' },
+            { id: '110071583', nome: 'Rejaine Aparecida Tosta Torres Barbieri' },
+            { id: '110070790', nome: 'Renata Lima Segretti' },
+            { id: '110071585', nome: 'Samilly Silva De Farias' },
+            { id: '110073946', nome: 'Tadeu Henrique Facchini' },
+            { id: '110071586', nome: 'Tamara Kely Nabeta Trento' },
+            { id: '110070907', nome: 'Thais Camila Lopes De Melo' },
+            { id: '110071587', nome: 'Valquiria Rocha De Souza' },
+            { id: '110070791', nome: 'Victor Brito Rocha Cazarini' },
+            { id: '110071588', nome: 'Vinicius Emilio Giehl' }
+        ];
 
         const consultores = [
             { id: '1', nome: 'Alan Dias' },
@@ -973,16 +973,16 @@ const comerciais = [
             emailCount--;
         }
 
-       // Preencher data/hora atual - CORRIGIDO PARA TIMEZONE BRASIL
-function setCurrentDateTime() {
-    const now = new Date();
-    // Ajustar para timezone de São Paulo (UTC-3)
-    const offset = now.getTimezoneOffset() * 60000; // offset em millisegundos
-    const brazilTime = new Date(now.getTime() - offset);
-    const dataAtual = brazilTime.toISOString().slice(0, 16);
-    document.getElementById('dataLead').value = dataAtual;
-}
-setCurrentDateTime();
+        // Preencher data/hora atual - CORRIGIDO PARA TIMEZONE BRASIL
+        function setCurrentDateTime() {
+            const now = new Date();
+            // Ajustar para timezone de São Paulo (UTC-3)
+            const offset = now.getTimezoneOffset() * 60000; // offset em millisegundos
+            const brazilTime = new Date(now.getTime() - offset);
+            const dataAtual = brazilTime.toISOString().slice(0, 16);
+            document.getElementById('dataLead').value = dataAtual;
+        }
+        setCurrentDateTime();
 
         // Custom Select com busca
         function createCustomSelect(inputId, dropdownId, hiddenId, data, errorId) {
